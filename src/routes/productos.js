@@ -12,4 +12,5 @@ routerProductos.get('/', async (req, res) => {
     res.json(productos)
 })
 
+
 module.exports = routerProductos

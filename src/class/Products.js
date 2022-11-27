@@ -2,6 +2,7 @@ const { faker } = require('@faker-js/faker');
 
 class ContenedorProductos {
 
+    
     async getRandom() {
         try {
             const productos = []

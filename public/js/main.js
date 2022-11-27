@@ -25,8 +25,6 @@ function addMessage(){
 }
 
 function render(data){
-
-    console.log('--------------------------------------------------')
     
     document.getElementById('messages').innerHTML = ''
     console.log('Avatars en el link: https://www.iconfinder.com/search/icons?price=free&q=user')

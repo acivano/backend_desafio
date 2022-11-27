@@ -11,6 +11,7 @@ mongoose.connect(mongoConfig.host, {
     if (err) console.log(err);
 });
 
+
 class ContenedorMensajes {
 
     async save(msj) {

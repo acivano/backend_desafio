@@ -21,7 +21,6 @@ const httpServer = new HttpServer(app)
 const io = new Socket(httpServer)
 
 
-
 io.on('connection', async socket => {
 
     console.log('Nuevo cliente');

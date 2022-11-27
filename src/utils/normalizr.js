@@ -1,7 +1,6 @@
 const { normalize, schema } = require('normalizr')
 
 function normalizeMsgs(msgs) {
-
   const chatMsgs = msgs.map((msg) => {
     return {
       author: msg.author,
