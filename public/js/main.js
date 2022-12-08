@@ -135,5 +135,5 @@ async function logout() {
 (async function start() {
     spanName.innerHTML = await getName() || '';
     nombre = await getName();
-    renderProductos();
+    await renderProductos();
 })();

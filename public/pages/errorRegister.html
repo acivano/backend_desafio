@@ -12,16 +12,22 @@
     <main>
         <div class="container mt-3"> 
             <div class="pb-5 border-bottom">
-                <h2>Login</h2>
-                <form action="/login" method="get">
-                    <input type="text" class="form-control mb-2" placeholder="Nombre" name="nombre" id="Nombre" required>
+                <h1>Ha ocurrido un error</h1>
+                <h3>Ya existe una cuenta con ese usuario.</h3>
 
-                    <button class="btn btn-primary btn-lg active mt-3">Enviar</button>
-                    
-                </form >
+            </div>
+            <div class="d-flex justify-content-around pb-5">
+
+                <a href="./registro.html">
+                    <button class="btn btn-primary btn-lg active mt-3">Volver a intentarlo</button>
+                </a>
+    
+                <a href="./login.html">
+                    <button class="btn btn-primary btn-lg active mt-3">Iniciar Sesion</button>
+                </a>
             </div>
         </div>
-        <script src="js/main.js"></script>
+        <script src="../js/main.js"></script>
     </main>
 </body>
 </html>

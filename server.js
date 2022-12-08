@@ -6,12 +6,14 @@ const ContenedorMensajes = require('./src/class/Messages')
 const routerProductos = require('./src/routes/productos')
 const routerSesions = require('./src/routes/sesion')
 
+const permissionValidate = require('./src/middlewares/permissionValidate')
+
 const { sessionConfig } = require('./src/config/config');
+
+const passport = require('./src/utils/passport');
 
 const manejadorProductos = new ContenedorProductos()
 const manejadorMensajes = new ContenedorMensajes()
-
-const authMiddleware = require('./src/middlewares/auth')
 
 const { Server: HttpServer } = require('http')
 const { Server: Socket } = require('socket.io');
@@ -37,12 +39,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-const session = require('express-session')
 
+const session = require('express-session')
 app.use(session(sessionConfig))
 
-app.use('/api/productos-test', authMiddleware, routerProductos)
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use('/api/productos-test', permissionValidate, routerProductos)
 app.use('/', routerSesions)
+
 
 const PORT = process.env.PORT || 8080;
 

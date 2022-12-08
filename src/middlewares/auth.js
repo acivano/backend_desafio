@@ -1,10 +1,9 @@
-const authMiddleware = (req, res, next) => {
-    if (req.session.nameAccess) {
+const authorization = (req, res, next) => {
+    if (req.isAuthenticated()) {
         next()
     } else {
-        res.json({ status: 404 })
+        res.redirect('/pages/login.html')
     }
 }
 
-
-module.exports = authMiddleware
+module.exports = authorization
