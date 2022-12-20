@@ -5,12 +5,22 @@ const ContenedorMensajes = require('./src/class/Messages')
 
 const routerProductos = require('./src/routes/productos')
 const routerSesions = require('./src/routes/sesion')
+const routerInfo = require('./src/routes/info')
+const routerChildProcess = require('./src/routes/childProcess')
+
 
 const permissionValidate = require('./src/middlewares/permissionValidate')
 
 const { sessionConfig } = require('./src/config/config');
 
 const passport = require('./src/utils/passport');
+
+
+const yargs = require('yargs/yargs')(process.argv.slice(2))
+const args = yargs.default({port: 8080}).alias({port: 'p'}).argv
+
+const PORT = args.port
+
 
 const manejadorProductos = new ContenedorProductos()
 const manejadorMensajes = new ContenedorMensajes()
@@ -48,9 +58,10 @@ app.use(passport.session());
 
 app.use('/api/productos-test', permissionValidate, routerProductos)
 app.use('/', routerSesions)
+app.use('/', routerInfo)
+app.use('/api', routerChildProcess)
 
 
-const PORT = process.env.PORT || 8080;
 
 const server = httpServer.listen(PORT, () => console.log(`Servidor http escuchando en el puerto ${server.address().port}`));
 server.on('error', error => console.log(`Error en servidor ${error}`));
