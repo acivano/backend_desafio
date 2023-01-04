@@ -3,9 +3,10 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const { validaPassword } = require('./cryptPass');
 
- const ContenedorSesiones = require('../class/Sessions');
-
+const ContenedorSesiones = require('../class/Sessions');
+const logger = require('../utils/logger')
 const manejadorSesiones = new ContenedorSesiones();
+
 
 passport.use('login', new LocalStrategy(
     {
@@ -15,18 +16,16 @@ passport.use('login', new LocalStrategy(
     },
     async (req, email, password, done) => {
         try {
-            console.log(email)
-            console.log(password)
+
             const user = await manejadorSesiones.findUser(email);
 
-            console.log(user)
             if (!user) return done(null, false)
 
             if (!validaPassword(user, password)) return done(null, false)
 
             return done(null, user)
         } catch (err) {
-            console.log(err)
+            logger.error(err)
             return done(err)
         }
     }
@@ -40,14 +39,13 @@ passport.use('singup', new LocalStrategy({
 
     async (req, email, password, done) => {
         try {
-            console.log(email)
-            console.log(password)
+
             const user = await manejadorSesiones.createUser({ email, password });
-            console.log('pasa el await')
-            console.log(user)
+
             if (user.err) return done(null, false)
             return done(null, user)
         } catch (err) {
+            logger.error(err)
             return done(err)
         }
     }

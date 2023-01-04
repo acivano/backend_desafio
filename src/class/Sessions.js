@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const logger = require('../utils/logger')
 
 const { mongoConfig } = require('../config/config');
 const { SessionModel } = require('../model/sessionModel');
@@ -8,28 +9,26 @@ mongoose.connect(mongoConfig.host, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, (err) => {
-    if (err) console.log(err);
+    if (err) logger.error(err)
 });
 
 class ContenedorSesiones {
 
     async findUser(user) {
         try {
-            console.log('find')
-            console.log(user)
+
             const userMongo = await SessionModel.findOne({ email: user });
             return userMongo;
         } catch (err) {
-            console.log(err)
+            logger.error(err)
         }
     }
 
     async createUser(user) {
         try {
-            console.log(user)
             const userfind = await SessionModel.findOne({ email: user.email });
-            console.log(userfind)
             if (userfind) {
+                logger.error(`El Usuario ${user.email} ya existe`)
                 return { err: "El usuario ya existe" }
             } else {
                 user.password = crearHash(user.password);
@@ -38,7 +37,7 @@ class ContenedorSesiones {
                 return newUser;
             }
         } catch (err) {
-            console.log(err)
+            logger.error(err)
         }
     }
 }

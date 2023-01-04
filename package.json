@@ -12,8 +12,7 @@
   
     
   "test": "echo \"Error: no test specified\" && exit 1",
-  
-    
+
   "start": "node server.js"
   
   },
@@ -30,7 +29,13 @@
   "@faker-js/faker": "^7.6.0",
   
     
+  "autocannon": "^7.10.0",
+  
+    
   "bcrypt": "^5.1.0",
+  
+    
+  "compression": "^1.7.4",
   
     
   "connect-mongo": "^4.6.0",
@@ -61,6 +66,9 @@
   
     
   "socket.io": "^4.5.4",
+  
+    
+  "winston": "^3.8.2",
   
     
   "yargs": "github:yargs/yargs"

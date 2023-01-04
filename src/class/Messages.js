@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { mongoConfig } = require('../config/config');
 const { ChatModel } = require('../model/msgModel');
+const logger = require('../utils/logger')
 
 const normalizeMsgs = require('../utils/normalizr');
 
@@ -8,7 +9,7 @@ mongoose.connect(mongoConfig.host, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, (err) => {
-    if (err) console.log(err);
+    if (err) logger.error(err);
 });
 
 
@@ -21,7 +22,7 @@ class ContenedorMensajes {
 
             return { Exito: "El mensaje se guardó correctamente" };
         } catch (err) {
-            console.log(err)
+            logger.error(err)
         }
     }
 
@@ -31,7 +32,7 @@ class ContenedorMensajes {
 
             return normalizeMsgs(mensajes);
         } catch (error) {
-            console.log(error);
+            logger.error(error)
         }
     }
 }

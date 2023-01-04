@@ -7,6 +7,7 @@ const routerProductos = require('./src/routes/productos')
 const routerSesions = require('./src/routes/sesion')
 const routerInfo = require('./src/routes/info')
 const routerChildProcess = require('./src/routes/childProcess')
+const logger = require('./src/utils/logger')
 
 
 const permissionValidate = require('./src/middlewares/permissionValidate')
@@ -80,8 +81,11 @@ if (cluster.isMaster && MODE.toUpperCase() === 'CLUSTER') {
     app.use('/', routerSesions)
     app.use('/', routerInfo)
     app.use('/api', routerChildProcess)
-    
+    app.get('*', (req, res)=>{
+        logger.warn(`EndPoint: ${req.originalUrl}- Método: ${req.method} - No se encuentra implementada`)
+        res.send(`Ruta ${req.originalUrl} ${req.method} no está implementada`)
+    })
 
     const server = httpServer.listen(PORT, () => console.log(`Servidor http escuchando en el puerto ${server.address().port}`));
-    server.on('error', error => console.log(`Error en servidor ${error}`));
+    server.on('error', error => logger.error(`Error en servidor ${error}`));
 }

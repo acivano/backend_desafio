@@ -1,5 +1,6 @@
 const express = require('express');
 const { Router } = express
+const logger = require('../utils/logger')
 
 const passport = require('passport');
 
@@ -8,6 +9,7 @@ const authorization = require('../middlewares/auth')
 const routerSesions = Router()
 
 routerSesions.get('/', authorization, async (req, res) => {
+    logger.info(`EndPoint ${req.originalUrl} - metodo ${req.method}`)
     req.session.nameAccess = req.user.email
     res.redirect('/pages/products.html')
 })
@@ -24,11 +26,14 @@ routerSesions.post('/register', passport.authenticate('singup', {
 })
 )
 routerSesions.get('/logout', (req, res, next) => {
+    logger.info(`EndPoint ${req.originalUrl} - metodo ${req.method}`)
 
     req.logout(function (err) {
 
-        if (err) return next(err);
-
+        if (err) {
+            logger.error(`EndPoint ${req.originalUrl} - metodo ${req.method}, Error: ${err}`)
+            return next(err);
+        }
         req.session.destroy()
         res.redirect("/");
     });
