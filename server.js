@@ -1,5 +1,9 @@
 const express = require('express');
+const AWS = require('aws-sdk')
 
+AWS.config.update({
+    region: 'us-east-1'
+})
 const ContenedorProductos = require('./src/class/Products')
 const ContenedorMensajes = require('./src/class/Messages')
 
@@ -29,22 +33,22 @@ const MODE = args.mode
 const manejadorProductos = new ContenedorProductos()
 const manejadorMensajes = new ContenedorMensajes()
 
-if (cluster.isMaster && MODE.toUpperCase() === 'CLUSTER') {
-    console.log(`Cantidad de CPUs: ${numCPUs}`)
-    console.log(`Modo de ejecución: ${MODE.toUpperCase()}`)
-    console.log(`Nodo master en: ${process.pid} en ejecución`)
+// if (cluster.isMaster && MODE.toUpperCase() === 'CLUSTER') {
+//     console.log(`Cantidad de CPUs: ${numCPUs}`)
+//     console.log(`Modo de ejecución: ${MODE.toUpperCase()}`)
+//     console.log(`Nodo master en: ${process.pid} en ejecución`)
 
-    for (let index = 0; index < numCPUs; index++) {
-        cluster.fork()        
-    }
+//     for (let index = 0; index < numCPUs; index++) {
+//         cluster.fork()        
+//     }
 
-    cluster.on('exit', worker => {
-        console.log(`worker ${worker.process.pid} died, ${new Date().toLocaleString()}`);
-        cluster.fork();
-    })
+//     cluster.on('exit', worker => {
+//         console.log(`worker ${worker.process.pid} died, ${new Date().toLocaleString()}`);
+//         cluster.fork();
+//     })
 
-} else {
-    console.log(`Worker ${process.pid} started`);
+//  } else {
+//      console.log(`Worker ${process.pid} started`);
     
     const { Server: HttpServer } = require('http')
     const { Server: Socket } = require('socket.io');
@@ -88,4 +92,4 @@ if (cluster.isMaster && MODE.toUpperCase() === 'CLUSTER') {
 
     const server = httpServer.listen(PORT, () => console.log(`Servidor http escuchando en el puerto ${server.address().port}`));
     server.on('error', error => logger.error(`Error en servidor ${error}`));
-}
+// }
