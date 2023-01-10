@@ -1,9 +1,9 @@
 const express = require('express');
-const AWS = require('aws-sdk')
+// const AWS = require('aws-sdk')
 
-AWS.config.update({
-    region: 'us-east-1'
-})
+// AWS.config.update({
+//     region: 'us-east-1'
+// })
 const ContenedorProductos = require('./src/class/Products')
 const ContenedorMensajes = require('./src/class/Messages')
 
