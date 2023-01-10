@@ -20,8 +20,8 @@ const { sessionConfig } = require('./src/config/config');
 
 const passport = require('./src/utils/passport');
 
-const cluster = require('cluster')
-const numCPUs = require('os').cpus().length
+// const cluster = require('cluster')
+// const numCPUs = require('os').cpus().length
 
 
 const yargs = require('yargs/yargs')(process.argv.slice(2))

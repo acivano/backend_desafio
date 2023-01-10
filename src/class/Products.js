@@ -5,22 +5,39 @@ class ContenedorProductos {
 
     
     async getRandom() {
+        // try {
+        //     const productos = []
+
+        //     for (let i = 0; i < 5; i++) {
+        //         productos.push({
+        //             Titulo: faker.commerce.productName(),
+        //             Precio: faker.commerce.price(),
+        //             url: faker.image.sports(200, 200, true)
+        //         })
+        //     }
+
+        //     return productos
+        // } catch (error) {
+        //     logger.error(err)
+        // }
+
         try {
             const productos = []
 
-            for (let i = 0; i < 5; i++) {
-                productos.push({
-                    Titulo: faker.commerce.productName(),
-                    Precio: faker.commerce.price(),
-                    url: faker.image.sports(200, 200, true)
-                })
-            }
+            
+            productos.push({
+                Titulo: "pepe",
+                Precio: 123.5,
+                url: "dsa"
+            })
+            
 
             return productos
         } catch (error) {
             logger.error(err)
         }
     }
+    
 }
 
 module.exports = ContenedorProductos;
